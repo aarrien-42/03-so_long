@@ -4,6 +4,7 @@ NAME = so_long
 # Directorios
 SRC_DIR = srcs/
 OBJ_DIR = objs/
+
 OBJF = objs
 INC = incs
 
@@ -19,15 +20,18 @@ MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM = rm -f
 AR = ar rcs
 
+.SILENT:
+
 # REGLAS #
 all: $(NAME)
 
 # Compilar conjuntamente
 $(NAME): $(OBJ)
 	@$(MAKE) -C ./libft
-	@$(MAKE) -C ./mlx
 	@echo "libft compiled!"
-	@$(CC) $(CFLAGS) $(OBJ) ./libft/libft.a ./mlx/libmlx.a $(MLX) -o $(NAME)
+	@$(MAKE) -C ./mlx
+	@echo "minilibx compiled!"
+	@$(CC) $(CFLAGS) $(OBJ) -I $(INC) libft/libft.a mlx/libmlx.a $(MLX) -o $(NAME)
 	@echo "so_long compiled!"
 
 # Compilar objetos individualmente
@@ -41,20 +45,20 @@ $(OBJF):
 
 # Eliminar temporales
 clean:
-	@$(MAKE) -C ./libft clean
-	@$(MAKE) -C ./mlx clean
+	@$(MAKE) -C libft/ clean
+	@$(MAKE) -C mlx/ clean
 	@$(RM) -r $(OBJ_DIR)
 	@echo "Objects and directory cleaned!"
 
 # Eliminar temporales y ejecutable
 fclean: clean
-	@$(MAKE) -C ./libft fclean
+	@$(MAKE) -C libft fclean
 	@$(RM) $(NAME) libft.a
 	@echo "Executable cleaned!"
 
 re: fclean all
 
 norm:
-	@norminette
+	@norminette $(SRC_DIR) $(INC)
 
 .PHONY: all clean fclean re
