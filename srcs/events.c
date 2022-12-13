@@ -6,34 +6,25 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:31:44 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/13 13:41:36 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:44:45 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/so_long.h"
 
-int	move(int keysym, t_data *data)
+int	controls(int keysym, t_data *data)
 {
-	if (keysym == 13) // w
-	{
-		data->view = 0;
-		data->player.img_y -= 32;
-	}
-	if (keysym == 0) // a
-	{
+	if (keysym == 13 || keysym == 126) // w
 		data->view = 1;
-		data->player.img_x -= 32;
-	}
-	if (keysym == 1) // s
-	{
+	if (keysym == 0 || keysym == 123) // a
 		data->view = 2;
-		data->player.img_y += 32;
-	}
-	if (keysym == 2) // d
-	{
+	if (keysym == 1 || keysym == 125) // s
 		data->view = 3;
-		data->player.img_x += 32;
-	}
+	if (keysym == 2 || keysym == 124) // d
+		data->view = 4;
+	data->moving = data->view;
+	if (data->view != 0)
+		data->moves++;
 	return (0);
 }
 
@@ -42,18 +33,18 @@ int	handle_keypress(int keysym, t_data *data)
 	printf("Keypress: %d\n", keysym);
 	if (keysym == 53) // esc
 	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		mlx_destroy_window(data->mlx, data->win);
 		exit(0);
 	}
-	move(keysym, data);
-	load_background(data, 480, 480);
+	if (data->moving == 0)
+		controls(keysym, data);
 	return (0);
 }
 
 int	handle_destroy(t_data *data)
 {
 	printf("Destroy\n");
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	mlx_destroy_window(data->mlx, data->win);
 	exit(0);
 	return (0);
 }
