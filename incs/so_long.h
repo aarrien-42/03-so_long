@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/13 18:31:50 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/14 11:34:24 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,26 @@ typedef struct s_img {
 typedef struct s_data {
 	void		*mlx;
 	void		*win;
+	char		**map;
 	int			map_w;
 	int			map_h;
 	t_texture	t;
 	t_img		player;
-	int			view;
-	int			moving;
-	size_t			moves;
 	t_img		floor;
 	t_img		wall;
+	int			view;
+	int			moving;
+	size_t		moves;
 }				t_data;
 
 /*-SO_LONG-*/
-int	load_textures(t_data *data);
-int	load_background(t_data *data, int width, int height);
+
+/*-CHECK-*/
+int	get_height(char *map);
+int	get_width(t_data *data);
+int	save_map(t_data *data, char *map, int h);
+int	print_map(t_data *data);
+int	check_map(t_data *data, char *input);
 
 /*-EVENTS-*/
 int	handle_keypress(int keysym, t_data *data);
@@ -62,11 +68,11 @@ int	handle_destroy(t_data *data);
 /*-LOAD-*/
 int	load_n(t_data *data, void **w, char *path, int n);
 int	load_textures(t_data *data);
-int	render_map(t_data *data);
 
 /*-RENDER-*/
 int	move_player(t_data *data, void **move, int i);
 int	animate_move(t_data *data, void **move, int frames);
+int	render_map(t_data *data);
 int	render_next_frame(t_data *data);
 
 #endif

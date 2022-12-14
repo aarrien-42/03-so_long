@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:47:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/13 18:43:33 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/14 11:52:08 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,37 @@ int	animate_move(t_data *data, void **move, int frames)
 			data->view = 0;
 		}
 	}
+	return (0);
+}
+
+int	show_moves(t_data *data)
+{
+	mlx_string_put(data->mlx, data->win, 5, 15, 0x00FFFFFF, "MOVES:");
+	mlx_string_put(data->mlx, data->win, 50, 15, 0x00FFFFFF, ft_itoa(data->moves));
+	return (0);
+}
+
+int	render_map(t_data *data)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	mlx_clear_window(data->mlx, data->win);
+	while (data->map[j])
+	{
+		while (data->map[j][i])
+		{
+			mlx_put_image_to_window(data->mlx, data->win, data->t.floor[0], i * 32, j * 32);
+			if (data->map[j][i] == '1')
+				mlx_put_image_to_window(data->mlx, data->win, data->t.floor[1], i * 32, j * 32);
+			i++;
+		}
+		i = 0;
+		j++;
+	}
+	show_moves(data);
 	return (0);
 }
 

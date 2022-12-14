@@ -9,7 +9,7 @@ OBJF = objs
 INC = incs
 
 # Ficheros
-SRC_FILES = so_long events render load
+SRC_FILES = so_long events render load check
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 

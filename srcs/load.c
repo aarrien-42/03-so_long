@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:30:48 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/13 18:05:26 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/14 09:52:15 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,4 @@ int	load_textures(t_data *data)
 	return (0);
 }
 
-int	render_map(t_data *data)
-{
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
-	mlx_clear_window(data->mlx, data->win);
-	while (i < data->map_w)
-	{
-		while (j < data->map_h)
-		{
-			mlx_put_image_to_window(data->mlx, data->win, data->t.floor[0], i, j);
-			if (i == 0)
-				mlx_put_image_to_window(data->mlx, data->win, data->t.floor[1], i, j);
-			j += 32;
-		}
-		j = 0;
-		i += 32;
-	}
-	return (0);
-}
