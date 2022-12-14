@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:30:48 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/14 09:52:15 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:32:44 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	load_textures(t_data *data)
 	load_n(data, data->t.p_down, "./textures/player/down/player_down_", 8);
 	load_n(data, data->t.p_right, "./textures/player/right/player_right_", 8);
 	load_n(data, data->t.p_left, "./textures/player/left/player_left_", 8);
-	load_n(data, data->t.floor, "./textures/floor/floor_", 2);
+	load_n(data, data->t.floor, "./textures/floor/floor_", 10);
+	load_n(data, data->t.wall, "./textures/wall/wall_", 1);
 	return (0);
 }
 

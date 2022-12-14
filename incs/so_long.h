@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/14 11:34:24 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:31:38 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef struct s_texture {
 	void	*p_down[8];
 	void	*p_right[8];
 	void	*p_left[8];
-	void	*floor[2];
+	void	*floor[10];
+	void	*wall[1];
 }			t_texture;
 
 typedef struct s_img {

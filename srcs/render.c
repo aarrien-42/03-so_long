@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:47:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/14 11:52:08 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:14:20 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	render_map(t_data *data)
 	i = 0;
 	j = 0;
 	mlx_clear_window(data->mlx, data->win);
-	while (data->map[j])
+	while (j < (data->map_h / 32))
 	{
-		while (data->map[j][i])
+		while (i < (data->map_w / 32))
 		{
 			mlx_put_image_to_window(data->mlx, data->win, data->t.floor[0], i * 32, j * 32);
 			if (data->map[j][i] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->t.floor[1], i * 32, j * 32);
+				mlx_put_image_to_window(data->mlx, data->win, data->t.wall[0], i * 32, j * 32);
 			i++;
 		}
 		i = 0;

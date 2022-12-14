@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 10:54:28 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/14 12:03:13 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:02:51 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 int	get_height(char *map)
 {
 	int		fd;
-	char	c;
+	char	*str;
 	int		h;
 
 	h = 0;
 	fd = open(map, O_RDONLY);
-	while (read(fd, &c, 1))
-		if (c == '\n')
-			h++;
+	while (1)
+	{
+		str = get_next_line(fd);
+		if (!str)
+			break ;
+		h++;
+		free(str);
+	}
 	close (fd);
-	return (h + 1);
+	return (h);
 }
 
 int	get_width(t_data *data)
@@ -45,20 +50,27 @@ int	get_width(t_data *data)
 		i = 0;
 		j++;
 	}
-	return (w - 1);
+	return (w);
 }
 
 int	save_map(t_data *data, char *map, int h)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	char	*str;
+	int		i;
 
 	data->map = malloc((h + 1) * sizeof(char *));
 	fd = open(map, O_RDONLY);
 	free(map);
 	i = 0;
 	while (i < h)
-		data->map[i++] = get_next_line(fd);
+	{
+		str = get_next_line(fd);
+		if (str != NULL)
+			data->map[i] = ft_strtrim(str, "\n");
+		free(str);
+		i++;
+	}
 	data->map[i] = NULL;
 	close(fd);
 	return (0);
@@ -69,9 +81,9 @@ int	print_map(t_data *data)
 	int	i;
 
 	i = 0;
-	printf("MAP:\n");
+	printf("\nMAP:\n");
 	while (i < data->map_h / 32)
-		printf("%s", data->map[i++]);
+		printf("%s\n", data->map[i++]);
 	return (0);
 }
 
