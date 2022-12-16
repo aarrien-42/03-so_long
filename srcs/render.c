@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:47:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/14 14:14:20 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:05:19 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,45 @@ int	show_moves(t_data *data)
 	return (0);
 }
 
+int	put_image(t_data *data, void **img, int x, int y, int mode)
+{
+	mlx_put_image_to_window(data->mlx, data->win, img[0], x * 32, y * 32);
+	if (mode == 1) // first state of a 32 x 64 object
+		mlx_put_image_to_window(data->mlx, data->win, img[1], x * 32, (y - 1) * 32);
+	if (mode == 2) // second state of a 32 x 64 object
+		put_image(data, &img[2], x, y, 1);
+	if (mode == 3) // exit's lights
+	{
+		/*if (chest_count(data) * 10 / data->chests_init <= data->chests_init / 4) // first light
+			mlx_put_image_to_window(data->mlx, data->win, img[2], x * 32, y * 32);
+		if (chest_count(data) * 10 / data->chests_init <= data->chests_init / 3) // second light
+			mlx_put_image_to_window(data->mlx, data->win, img[3], x * 32, y * 32);
+		if (chest_count(data) * 10 / data->chests_init <= data->chests_init / 2) // third light
+			mlx_put_image_to_window(data->mlx, data->win, img[4], x * 32, y * 32);
+		if (chest_count(data) == 0) // all
+		{
+			mlx_put_image_to_window(data->mlx, data->win, img[5], x * 32, y * 32);
+			mlx_put_image_to_window(data->mlx, data->win, img[6], x * 32, (y - 1) * 32);
+		}*/
+	}
+	return (0);
+}
+
+int	render_objects(t_data *data, int x, int y)
+{
+	if (data->map[y][x] == '1')
+		put_image(data, data->t.wall, x, y, 0);
+	if (data->map[y][x] == 'C')
+		put_image(data, data->t.chest, x, y, 1);
+	if (data->map[y][x] == 'c')
+		put_image(data, data->t.chest, x, y, 2);
+	if (data->map[y][x] == 'E')
+	{
+		put_image(data, data->t.exit, x, y, 1);
+	}
+	return (0);
+}
+
 int	render_map(t_data *data)
 {
 	int		i;
@@ -68,14 +107,36 @@ int	render_map(t_data *data)
 		while (i < (data->map_w / 32))
 		{
 			mlx_put_image_to_window(data->mlx, data->win, data->t.floor[0], i * 32, j * 32);
-			if (data->map[j][i] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->t.wall[0], i * 32, j * 32);
+			render_objects(data, i, j);
 			i++;
 		}
 		i = 0;
 		j++;
 	}
 	show_moves(data);
+	return (0);
+}
+
+int	collect_chest(t_data *data, int x, int y)
+{
+	char	*str;
+	char	*aux;
+	int		i;
+
+	i = 0;
+	aux = data->map[y];
+	str = malloc ((ft_strlen(aux) + 1) * sizeof(char));
+	while (aux[i])
+	{
+		if (i == x)
+			str[i] = 'c';
+		else
+			str[i] = aux[i];
+		i++;
+	}
+	str[i] = '\0';
+	data->map[y] = str;
+	free(aux);
 	return (0);
 }
 
@@ -104,7 +165,10 @@ int	render_next_frame(t_data *data)
 			mlx_put_image_to_window(data->mlx, data->win, data->t.p_wait[i / 8],
 				data->player.img_x, data->player.img_y);
 		}
+		if (data->map[data->player.img_y / 32][data->player.img_x / 32] == 'C')
+			collect_chest(data, data->player.img_x / 32, data->player.img_y / 32);
 	}
+	printf("CHESTS = %d\n", chest_count(data));
 	//printf("Position: x %d y %d\n", data->player.img_x, data->player.img_y);
 	//printf("Moves = %zu\n", data->moves);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/14 13:31:38 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:50:28 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_texture {
 	void	*p_left[8];
 	void	*floor[10];
 	void	*wall[1];
+	void	*chest[4];
+	void	*exit[7];
 }			t_texture;
 
 typedef struct s_img {
@@ -46,11 +48,10 @@ typedef struct s_data {
 	int			map_h;
 	t_texture	t;
 	t_img		player;
-	t_img		floor;
-	t_img		wall;
 	int			view;
 	int			moving;
 	size_t		moves;
+	int			chests_init;
 }				t_data;
 
 /*-SO_LONG-*/
@@ -60,9 +61,12 @@ int	get_height(char *map);
 int	get_width(t_data *data);
 int	save_map(t_data *data, char *map, int h);
 int	print_map(t_data *data);
+int	chest_count(t_data *data);
 int	check_map(t_data *data, char *input);
 
 /*-EVENTS-*/
+int	valid_move(int keysym, t_data *data, char obj);
+int	controls(int keysym, t_data *data);
 int	handle_keypress(int keysym, t_data *data);
 int	handle_destroy(t_data *data);
 
@@ -74,6 +78,7 @@ int	load_textures(t_data *data);
 int	move_player(t_data *data, void **move, int i);
 int	animate_move(t_data *data, void **move, int frames);
 int	render_map(t_data *data);
+int	put_image(t_data *data, void **img, int x, int y, int mode);
 int	render_next_frame(t_data *data);
 
 #endif

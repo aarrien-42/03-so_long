@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 10:54:28 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/14 13:02:51 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/16 13:43:06 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,29 @@ int	print_map(t_data *data)
 	return (0);
 }
 
+int	chest_count(t_data *data)
+{
+	int	count;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	count = 0;
+	while (data->map[j])
+	{
+		while (data->map[j][i])
+		{
+			if (data->map[j][i] == 'C')
+				count++;
+			i++;
+		}
+		i = 0;
+		j++;
+	}
+	return (count);
+}
+
 int	check_map(t_data *data, char *input)
 {
 	char	*map;
@@ -95,6 +118,6 @@ int	check_map(t_data *data, char *input)
 	data->map_h = get_height(map) * 32;
 	save_map(data, map, data->map_h / 32);
 	data->map_w = get_width(data) * 32;
-	print_map(data);
+	//print_map(data);
 	return (0);
 }

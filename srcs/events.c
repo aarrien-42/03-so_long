@@ -6,14 +6,40 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:31:44 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/13 18:44:45 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:03:38 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/so_long.h"
 
+int	valid_move(int keysym, t_data *data, char obj)
+{
+	int	p_x;
+	int	p_y;
+
+	p_x = data->player.img_x / 32;
+	p_y = data->player.img_y / 32;
+	if (keysym == 13 || keysym == 126)
+		if (data->map[p_y - 1][p_x] == obj)
+			return (1);
+	if (keysym == 0 || keysym == 123)
+		if (data->map[p_y][p_x - 1] == obj)
+			return (1);
+	if (keysym == 1 || keysym == 125)
+		if (data->map[p_y + 1][p_x] == obj)
+			return (1);
+	if (keysym == 2 || keysym == 124)
+		if (data->map[p_y][p_x + 1] == obj)
+			return (1);
+	return (0);
+}
+
 int	controls(int keysym, t_data *data)
 {
+	if (valid_move(keysym, data, 'E') && chest_count(data) == 0)
+		exit(0);
+	if (valid_move(keysym, data, '1') != 0 || valid_move(keysym, data, 'E') != 0)
+		return (0);
 	if (keysym == 13 || keysym == 126) // w
 		data->view = 1;
 	if (keysym == 0 || keysym == 123) // a
@@ -30,7 +56,7 @@ int	controls(int keysym, t_data *data)
 
 int	handle_keypress(int keysym, t_data *data)
 {
-	printf("Keypress: %d\n", keysym);
+	//printf("Keypress: %d\n", keysym);
 	if (keysym == 53) // esc
 	{
 		mlx_destroy_window(data->mlx, data->win);
@@ -43,7 +69,7 @@ int	handle_keypress(int keysym, t_data *data)
 
 int	handle_destroy(t_data *data)
 {
-	printf("Destroy\n");
+	//printf("Destroy\n");
 	mlx_destroy_window(data->mlx, data->win);
 	exit(0);
 	return (0);

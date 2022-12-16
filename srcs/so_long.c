@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 10:26:05 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/14 13:00:37 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:12:49 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	find(t_data *data)
 			{
 				data->player.img_x = i * 32;
 				data->player.img_y = j * 32;
+				return (0);
 			}
 			i++;
 		}
@@ -43,6 +44,7 @@ int	game_init(t_data *data)
 	data->moves = 0;
 	data->moving = 0;
 	data->view = 0;
+	data->chests_init = chest_count(data);
 	find(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->t.p_wait[0],
 		data->player.img_x, data->player.img_y);
