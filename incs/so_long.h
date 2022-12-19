@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/16 14:50:28 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:17:04 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	load_textures(t_data *data);
 int	move_player(t_data *data, void **move, int i);
 int	animate_move(t_data *data, void **move, int frames);
 int	render_map(t_data *data);
-int	put_image(t_data *data, void **img, int x, int y, int mode);
+int	put_image(t_data *data, void **img, int pos[2], int mode);
 int	render_next_frame(t_data *data);
 
 #endif

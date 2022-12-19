@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 10:54:28 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/16 13:43:06 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:46:39 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	save_map(t_data *data, char *map, int h)
 
 	data->map = malloc((h + 1) * sizeof(char *));
 	fd = open(map, O_RDONLY);
-	free(map);
 	i = 0;
 	while (i < h)
 	{
@@ -112,11 +111,8 @@ int	chest_count(t_data *data)
 
 int	check_map(t_data *data, char *input)
 {
-	char	*map;
-
-	map = ft_strjoin("maps/", input);
-	data->map_h = get_height(map) * 32;
-	save_map(data, map, data->map_h / 32);
+	data->map_h = get_height(input) * 32;
+	save_map(data, input, data->map_h / 32);
 	data->map_w = get_width(data) * 32;
 	//print_map(data);
 	return (0);

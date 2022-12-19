@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:30:48 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/16 14:29:29 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:02:00 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,3 @@ int	load_textures(t_data *data)
 	load_n(data, data->t.exit, "./textures/exit/exit_", 7);
 	return (0);
 }
-
-

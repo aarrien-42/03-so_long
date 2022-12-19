@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:31:44 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/16 14:03:38 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:01:49 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,16 @@ int	controls(int keysym, t_data *data)
 {
 	if (valid_move(keysym, data, 'E') && chest_count(data) == 0)
 		exit(0);
-	if (valid_move(keysym, data, '1') != 0 || valid_move(keysym, data, 'E') != 0)
+	if (valid_move(keysym, data, '1') != 0
+		|| valid_move(keysym, data, 'E') != 0)
 		return (0);
-	if (keysym == 13 || keysym == 126) // w
+	if (keysym == 13 || keysym == 126)
 		data->view = 1;
-	if (keysym == 0 || keysym == 123) // a
+	if (keysym == 0 || keysym == 123)
 		data->view = 2;
-	if (keysym == 1 || keysym == 125) // s
+	if (keysym == 1 || keysym == 125)
 		data->view = 3;
-	if (keysym == 2 || keysym == 124) // d
+	if (keysym == 2 || keysym == 124)
 		data->view = 4;
 	data->moving = data->view;
 	if (data->view != 0)
@@ -56,8 +57,7 @@ int	controls(int keysym, t_data *data)
 
 int	handle_keypress(int keysym, t_data *data)
 {
-	//printf("Keypress: %d\n", keysym);
-	if (keysym == 53) // esc
+	if (keysym == 53)
 	{
 		mlx_destroy_window(data->mlx, data->win);
 		exit(0);
@@ -69,7 +69,6 @@ int	handle_keypress(int keysym, t_data *data)
 
 int	handle_destroy(t_data *data)
 {
-	//printf("Destroy\n");
 	mlx_destroy_window(data->mlx, data->win);
 	exit(0);
 	return (0);

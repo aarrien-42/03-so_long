@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 10:26:05 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/16 14:12:49 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:00:31 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	game_init(t_data *data)
 
 int	main(int ac, char **av)
 {
-
 	t_data	data;
 
 	if (ac != 2)
