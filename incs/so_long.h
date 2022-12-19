@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/19 13:17:04 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:59:53 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef struct s_texture {
 	void	*p_left[8];
 	void	*floor[10];
 	void	*wall[1];
-	void	*chest[4];
-	void	*exit[7];
+	void	*chest[1];
+	void	*exit[3];
+	void	*par[8];
 }			t_texture;
 
 typedef struct s_img {
@@ -55,18 +56,18 @@ typedef struct s_data {
 }				t_data;
 
 /*-SO_LONG-*/
+int	*find(t_data *data, char c);
 
 /*-CHECK-*/
 int	get_height(char *map);
 int	get_width(t_data *data);
 int	save_map(t_data *data, char *map, int h);
 int	print_map(t_data *data);
-int	chest_count(t_data *data);
+int	obj_count(t_data *data, char c);
 int	check_map(t_data *data, char *input);
 
 /*-EVENTS-*/
 int	valid_move(int keysym, t_data *data, char obj);
-int	controls(int keysym, t_data *data);
 int	handle_keypress(int keysym, t_data *data);
 int	handle_destroy(t_data *data);
 

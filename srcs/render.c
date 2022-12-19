@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:47:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/19 13:24:43 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:01:50 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,37 +55,30 @@ int	show_info(t_data *data)
 		ft_itoa(data->moves));
 	mlx_string_put(data->mlx, data->win, 5, 30, 0x00FFFFFF, "CHESTS:");
 	mlx_string_put(data->mlx, data->win, 60, 30, 0x00FFFFFF,
-		ft_itoa(data->chests_init - chest_count(data)));
-	mlx_string_put(data->mlx, data->win, 75, 30, 0x00FFFFFF, "/");
-	mlx_string_put(data->mlx, data->win, 90, 30, 0x00FFFFFF,
+		ft_itoa(data->chests_init - obj_count(data, 'C')));
+	mlx_string_put(data->mlx, data->win, 75, 30, 0x00FFFFFF, "of");
+	mlx_string_put(data->mlx, data->win, 95, 30, 0x00FFFFFF,
 		ft_itoa(data->chests_init));
 	return (0);
 }
 
 int	put_image(t_data *data, void **img, int pos[2], int mode)
 {
+	static int	i;
 	int	chests;
 
-	chests = data->chests_init - chest_count(data);
+	chests = data->chests_init - obj_count(data, 'C');
 	mlx_put_image_to_window(data->mlx, data->win, img[0], pos[0], pos[1]);
-	if (mode == 1)
+	if (mode == 1 || mode == 2)
 		mlx_put_image_to_window(data->mlx, data->win, img[1],
 			pos[0], (pos[1] - 32));
-	if (mode == 2)
-		put_image(data, &img[2], pos, 1);
-	if (mode != 3)
-		return (0);
-	if (chests * 100 >= data->chests_init * 100 / 4 * 1)
-		mlx_put_image_to_window(data->mlx, data->win, img[2], pos[0], pos[1]);
-	if (chests * 100 >= data->chests_init * 100 / 4 * 2)
-		mlx_put_image_to_window(data->mlx, data->win, img[3], pos[0], pos[1]);
-	if (chests * 100 >= data->chests_init * 100 / 4 * 3)
-		mlx_put_image_to_window(data->mlx, data->win, img[4], pos[0], pos[1]);
-	if (chest_count(data) == 0)
+	if (mode == 2 && obj_count(data, 'C') == 0)
 	{
-		mlx_put_image_to_window(data->mlx, data->win, img[5], pos[0], pos[1]);
-		mlx_put_image_to_window(data->mlx, data->win, img[6],
-			pos[0], (pos[1] - 32));
+		mlx_put_image_to_window(data->mlx, data->win, img[2], pos[0], pos[1]);
+		i++;
+			if (i >= 64)
+				i = 0;
+			mlx_put_image_to_window(data->mlx, data->win, data->t.par[i/8], pos[0], pos[1]);
 	}
 	return (0);
 }
@@ -99,14 +92,9 @@ int	render_objects(t_data *data, int x, int y)
 	if (data->map[y][x] == '1')
 		put_image(data, data->t.wall, pos, 0);
 	if (data->map[y][x] == 'C')
-		put_image(data, data->t.chest, pos, 1);
-	if (data->map[y][x] == 'c')
-		put_image(data, data->t.chest, pos, 2);
+		put_image(data, data->t.chest, pos, 0);
 	if (data->map[y][x] == 'E')
-	{
-		put_image(data, data->t.exit, pos, 1);
-		put_image(data, data->t.exit, pos, 3);
-	}
+		put_image(data, data->t.exit, pos, 2);
 	return (0);
 }
 
@@ -163,7 +151,7 @@ int	render_next_frame(t_data *data)
 	static int	i;
 
 	count++;
-	if (count % 64 == 0)
+	if (count % 48 == 0)
 	{
 		count = 0;
 		if (++i >= 32)

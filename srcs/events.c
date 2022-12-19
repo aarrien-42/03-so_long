@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:31:44 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/19 13:01:49 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:03:46 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@ int	valid_move(int keysym, t_data *data, char obj)
 	return (0);
 }
 
-int	controls(int keysym, t_data *data)
+int	handle_keypress(int keysym, t_data *data)
 {
-	if (valid_move(keysym, data, 'E') && chest_count(data) == 0)
+	if (keysym == 53)
+		handle_destroy(data);
+	if (data->moving != 0)
+		return (0);
+	if (valid_move(keysym, data, 'E') && obj_count(data, 'C') == 0)
 		exit(0);
 	if (valid_move(keysym, data, '1') != 0
 		|| valid_move(keysym, data, 'E') != 0)
@@ -52,18 +56,6 @@ int	controls(int keysym, t_data *data)
 	data->moving = data->view;
 	if (data->view != 0)
 		data->moves++;
-	return (0);
-}
-
-int	handle_keypress(int keysym, t_data *data)
-{
-	if (keysym == 53)
-	{
-		mlx_destroy_window(data->mlx, data->win);
-		exit(0);
-	}
-	if (data->moving == 0)
-		controls(keysym, data);
 	return (0);
 }
 
