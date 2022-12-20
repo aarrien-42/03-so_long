@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:47:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/19 19:01:50 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:45:46 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	render_objects(t_data *data, int x, int y)
 		put_image(data, data->t.chest, pos, 0);
 	if (data->map[y][x] == 'E')
 		put_image(data, data->t.exit, pos, 2);
+	if (data->map[y][x] == 'V' || data->map[y][x] == 'H')
+		put_image(data, &data->t.spike[2], pos, 0);
 	return (0);
 }
 

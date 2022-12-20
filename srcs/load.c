@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:30:48 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/19 18:38:51 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:58:29 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	load_n(t_data *data, void **w, char *path, int n)
 int	load_textures(t_data *data)
 {
 	load_n(data, data->t.p_wait, "./textures/player/wait/player_wait_", 4);
+	load_n(data, data->t.p_die, "./textures/player/die/die_", 8);
 	load_n(data, data->t.p_up, "./textures/player/up/player_up_", 8);
 	load_n(data, data->t.p_down, "./textures/player/down/player_down_", 8);
 	load_n(data, data->t.p_right, "./textures/player/right/player_right_", 8);
@@ -49,5 +50,6 @@ int	load_textures(t_data *data)
 	load_n(data, data->t.chest, "./textures/chest/chest_", 1);
 	load_n(data, data->t.exit, "./textures/exit/exit_", 3);
 	load_n(data, data->t.par, "./textures/par/par_", 8);
+	load_n(data, data->t.spike, "./textures/spikes/spike_", 3);
 	return (0);
 }

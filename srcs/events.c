@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:31:44 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/19 19:03:46 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:16:00 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,16 @@ int	valid_move(int keysym, t_data *data, char obj)
 	return (0);
 }
 
+void	death(t_data *data)
+{
+	
+}
+
 int	handle_keypress(int keysym, t_data *data)
 {
+	printf("Keypress: %d\n", keysym);
+	if (keysym == 49)
+		death(data);
 	if (keysym == 53)
 		handle_destroy(data);
 	if (data->moving != 0)

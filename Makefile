@@ -46,7 +46,6 @@ $(OBJF):
 # Eliminar temporales
 clean:
 	@$(MAKE) -C libft/ clean
-	@$(MAKE) -C mlx/ clean
 	@$(RM) -r $(OBJ_DIR)
 	@echo "Objects and directory cleaned!"
 
