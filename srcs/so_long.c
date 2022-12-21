@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 10:26:05 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/19 19:00:23 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:07:31 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	game_init(t_data *data)
 	data->moves = 0;
 	data->moving = 0;
 	data->view = 0;
-	data->chests_init = obj_count(data, 'C');
+	data->chests_init = obj_count(data, 'c');
 	data->player.img_x = find(data, 'P')[0];
 	data->player.img_y = find(data, 'P')[1];
 	mlx_put_image_to_window(data->mlx, data->win, data->t.p_wait[0],
@@ -59,9 +59,8 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	if (ac != 2)
-		return (0);
-	if (check_map(&data, av[1]) != 0)
-		return (ft_putstr_fd("Error\n", 2), 0);
+		show_error(0);
+	check_map(&data, av[1]);
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, data.map_w, data.map_h, "so_long");
 	game_init(&data);

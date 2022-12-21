@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/20 17:55:57 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:01:19 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,32 @@ typedef struct s_data {
 }				t_data;
 
 /*-SO_LONG-*/
-int	*find(t_data *data, char c);
+int		*find(t_data *data, char c);
 
 /*-CHECK-*/
-int	get_height(char *map);
-int	get_width(t_data *data);
-int	save_map(t_data *data, char *map, int h);
-int	print_map(t_data *data);
-int	obj_count(t_data *data, char c);
-int	check_map(t_data *data, char *input);
+int		get_height(char *map);
+int		get_width(t_data *data);
+int		save_map(t_data *data, char *map, int h);
+int		print_map(t_data *data);
+int		obj_count(t_data *data, char c);
+int		check_map(t_data *data, char *input);
 
 /*-EVENTS-*/
-int	valid_move(int keysym, t_data *data, char obj);
-int	handle_keypress(int keysym, t_data *data);
-int	handle_destroy(t_data *data);
+void	show_error(int code);
+int		valid_move(int keysym, t_data *data, char obj);
+void	death(t_data *data);
+int		handle_keypress(int keysym, t_data *data);
+int		handle_destroy(t_data *data);
 
 /*-LOAD-*/
-int	load_n(t_data *data, void **w, char *path, int n);
-int	load_textures(t_data *data);
+int		load_n(t_data *data, void **w, char *path, int n);
+int		load_textures(t_data *data);
 
 /*-RENDER-*/
-int	move_player(t_data *data, void **move, int i);
-int	animate_move(t_data *data, void **move, int frames);
-int	render_map(t_data *data);
-int	put_image(t_data *data, void **img, int pos[2], int mode);
-int	render_next_frame(t_data *data);
+int		move_player(t_data *data, void **move, int i);
+int		animate_move(t_data *data, void **move, int frames);
+int		render_map(t_data *data);
+int		put_image(t_data *data, void **img, int pos[2], int mode);
+int		render_next_frame(t_data *data);
 
 #endif

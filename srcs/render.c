@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:47:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/20 17:45:46 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:44:27 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,17 @@ int	move_player(t_data *data, void **move, int i)
 
 int	animate_move(t_data *data, void **move, int frames)
 {
-	static int	count;
 	static int	i;
 
-	count++;
-	if (count % 8 == 0)
+	move_player(data, move, i);
+	if (++i >= frames)
 	{
-		move_player(data, move, i);
-		count = 0;
-		if (++i >= frames)
-		{
-			i = 0;
-			data->moving = 0;
+		i = 0;
+		data->moving = 0;
+		if (data->view != -1)
 			data->view = 0;
-		}
+		else
+			handle_destroy(data);
 	}
 	return (0);
 }
@@ -55,7 +52,7 @@ int	show_info(t_data *data)
 		ft_itoa(data->moves));
 	mlx_string_put(data->mlx, data->win, 5, 30, 0x00FFFFFF, "CHESTS:");
 	mlx_string_put(data->mlx, data->win, 60, 30, 0x00FFFFFF,
-		ft_itoa(data->chests_init - obj_count(data, 'C')));
+		ft_itoa(data->chests_init - obj_count(data, 'c')));
 	mlx_string_put(data->mlx, data->win, 75, 30, 0x00FFFFFF, "of");
 	mlx_string_put(data->mlx, data->win, 95, 30, 0x00FFFFFF,
 		ft_itoa(data->chests_init));
@@ -65,20 +62,21 @@ int	show_info(t_data *data)
 int	put_image(t_data *data, void **img, int pos[2], int mode)
 {
 	static int	i;
-	int	chests;
+	int			chests;
 
-	chests = data->chests_init - obj_count(data, 'C');
+	chests = data->chests_init - obj_count(data, 'c');
 	mlx_put_image_to_window(data->mlx, data->win, img[0], pos[0], pos[1]);
 	if (mode == 1 || mode == 2)
 		mlx_put_image_to_window(data->mlx, data->win, img[1],
 			pos[0], (pos[1] - 32));
-	if (mode == 2 && obj_count(data, 'C') == 0)
+	if (mode == 2 && obj_count(data, 'c') == 0)
 	{
 		mlx_put_image_to_window(data->mlx, data->win, img[2], pos[0], pos[1]);
 		i++;
-			if (i >= 64)
-				i = 0;
-			mlx_put_image_to_window(data->mlx, data->win, data->t.par[i/8], pos[0], pos[1]);
+		if (i >= 64)
+			i = 0;
+		mlx_put_image_to_window(data->mlx, data->win,
+			data->t.par[i / 8], pos[0], pos[1]);
 	}
 	return (0);
 }
@@ -91,10 +89,12 @@ int	render_objects(t_data *data, int x, int y)
 	pos[1] = y * 32;
 	if (data->map[y][x] == '1')
 		put_image(data, data->t.wall, pos, 0);
-	if (data->map[y][x] == 'C')
+	if (data->map[y][x] == 'c')
 		put_image(data, data->t.chest, pos, 0);
-	if (data->map[y][x] == 'E')
+	if (data->map[y][x] == 'e')
 		put_image(data, data->t.exit, pos, 2);
+	if (data->map[y][x] == 'v' || data->map[y][x] == 'h')
+		put_image(data, &data->t.spike[2], pos, 0);
 	if (data->map[y][x] == 'V' || data->map[y][x] == 'H')
 		put_image(data, &data->t.spike[2], pos, 0);
 	return (0);
@@ -136,7 +136,7 @@ int	collect_chest(t_data *data, int x, int y)
 	while (aux[i])
 	{
 		if (i == x)
-			str[i] = 'c';
+			str[i] = 'C';
 		else
 			str[i] = aux[i];
 		i++;
@@ -153,10 +153,10 @@ int	render_next_frame(t_data *data)
 	static int	i;
 
 	count++;
-	if (count % 48 == 0)
+	if (count % 350 == 0)
 	{
 		count = 0;
-		if (++i >= 32)
+		if (++i >= 16)
 			i = 0;
 		if (data->view == 1 && data->moving == 1)
 			animate_move(data, data->t.p_up, 8);
@@ -169,10 +169,12 @@ int	render_next_frame(t_data *data)
 		if (data->view == 0)
 		{
 			render_map(data);
-			mlx_put_image_to_window(data->mlx, data->win, data->t.p_wait[i / 8],
+			mlx_put_image_to_window(data->mlx, data->win, data->t.p_wait[i / 4],
 				data->player.img_x, data->player.img_y);
 		}
-		if (data->map[data->player.img_y / 32][data->player.img_x / 32] == 'C')
+		if (data->view == -1)
+			death(data);
+		if (data->map[data->player.img_y / 32][data->player.img_x / 32] == 'c')
 			collect_chest(data, data->player.img_x / 32,
 				data->player.img_y / 32);
 	}
