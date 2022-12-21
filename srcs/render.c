@@ -6,58 +6,11 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:47:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/21 14:44:27 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:33:07 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/so_long.h"
-
-int	move_player(t_data *data, void **move, int i)
-{
-	render_map(data);
-	if (data->view == 1)
-		data->player.img_y -= 4;
-	if (data->view == 2)
-		data->player.img_x -= 4;
-	if (data->view == 3)
-		data->player.img_y += 4;
-	if (data->view == 4)
-		data->player.img_x += 4;
-	mlx_put_image_to_window(data->mlx, data->win, move[i],
-		data->player.img_x, data->player.img_y);
-	return (0);
-}
-
-int	animate_move(t_data *data, void **move, int frames)
-{
-	static int	i;
-
-	move_player(data, move, i);
-	if (++i >= frames)
-	{
-		i = 0;
-		data->moving = 0;
-		if (data->view != -1)
-			data->view = 0;
-		else
-			handle_destroy(data);
-	}
-	return (0);
-}
-
-int	show_info(t_data *data)
-{
-	mlx_string_put(data->mlx, data->win, 5, 15, 0x00FFFFFF, "MOVES:");
-	mlx_string_put(data->mlx, data->win, 50, 15, 0x00FFFFFF,
-		ft_itoa(data->moves));
-	mlx_string_put(data->mlx, data->win, 5, 30, 0x00FFFFFF, "CHESTS:");
-	mlx_string_put(data->mlx, data->win, 60, 30, 0x00FFFFFF,
-		ft_itoa(data->chests_init - obj_count(data, 'c')));
-	mlx_string_put(data->mlx, data->win, 75, 30, 0x00FFFFFF, "of");
-	mlx_string_put(data->mlx, data->win, 95, 30, 0x00FFFFFF,
-		ft_itoa(data->chests_init));
-	return (0);
-}
 
 int	put_image(t_data *data, void **img, int pos[2], int mode)
 {
@@ -158,14 +111,7 @@ int	render_next_frame(t_data *data)
 		count = 0;
 		if (++i >= 16)
 			i = 0;
-		if (data->view == 1 && data->moving == 1)
-			animate_move(data, data->t.p_up, 8);
-		if (data->view == 2 && data->moving == 2)
-			animate_move(data, data->t.p_left, 8);
-		if (data->view == 3 && data->moving == 3)
-			animate_move(data, data->t.p_down, 8);
-		if (data->view == 4 && data->moving == 4)
-			animate_move(data, data->t.p_right, 8);
+		check_view(data);
 		if (data->view == 0)
 		{
 			render_map(data);
