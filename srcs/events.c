@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:31:44 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/21 16:28:30 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/22 15:52:17 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	death(t_data *data)
 {
 	static int	i;
 
-	if (i >= 50)
+	data->view = -1;
+	if (i >= 75)
 		handle_destroy(data);
 	if (i / 4 < 8)
 	{
@@ -27,14 +28,38 @@ void	death(t_data *data)
 	i++;
 }
 
+int	check_die(t_data *data)
+{
+	int		pos[2];
+	char	*enemy;
+
+	enemy = "vVhH";
+	pos[0] = data->player.img_x / 32;
+	pos[1] = data->player.img_y / 32;
+	if (data->player.img_x % 32 != 0 || data->player.img_y % 32 != 0)
+		return (0);
+	if (ft_strchr(enemy, data->map[pos[1]][pos[0]]) != 0)
+		if (data->e.mode == 0)
+			death(data);
+	if (data->e.mode == -1)
+		if (data->map[pos[1] + 1][pos[0]] == 'v' ||
+			data->map[pos[1]][pos[0] + 1] == 'h')
+			death(data);
+	if (data->e.mode == 1)
+		if (data->map[pos[1] - 1][pos[0]] == 'v' ||
+			data->map[pos[1]][pos[0] - 1] == 'h')
+			death(data);
+	return (0);
+}
+
 int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == 49)
 		data->view = -1;
+	if (data->view == -1)
+		return (0);
 	if (keysym == 53)
 		handle_destroy(data);
-	if (data->moving != 0)
-		return (0);
 	if (valid_move(keysym, data, 'e') && obj_count(data, 'c') == 0)
 		exit(0);
 	if (valid_move(keysym, data, '1') != 0
@@ -51,6 +76,8 @@ int	handle_keypress(int keysym, t_data *data)
 	data->moving = data->view;
 	if (data->view != 0 && data->view != -1)
 		data->moves++;
+	if (data->view != 0)
+		move_enemy(data);
 	return (0);
 }
 

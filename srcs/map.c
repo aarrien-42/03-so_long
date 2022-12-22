@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:09:38 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/21 16:09:59 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/22 15:38:52 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,11 @@ int	print_map(t_data *data)
 	int	i;
 
 	i = 0;
-	printf("\nMAP:\n");
+	ft_putstr_fd("\nMAP:\n", 1);
 	while (i < data->map_h / 32)
-		printf("%s\n", data->map[i++]);
+	{
+		ft_putstr_fd(data->map[i++], 1);
+		ft_putchar_fd('\n', 1);
+	}
 	return (0);
 }

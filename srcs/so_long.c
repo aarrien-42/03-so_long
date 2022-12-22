@@ -6,49 +6,24 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 10:26:05 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/21 15:07:31 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/22 15:38:17 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/so_long.h"
 
-int	*find(t_data *data, char c)
-{
-	int	*res;
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	res = malloc(2 * sizeof(int));
-	while (data->map[j])
-	{
-		while (data->map[j][i])
-		{
-			if (data->map[j][i] == c)
-			{
-				res[0] = i * 32;
-				res[1] = j * 32;
-				return (res);
-			}
-			i++;
-		}
-		i = 0;
-		j++;
-	}
-	return (0);
-}
-
 int	game_init(t_data *data)
 {
 	load_textures(data);
-	render_map(data);
 	data->moves = 0;
 	data->moving = 0;
 	data->view = 0;
 	data->chests_init = obj_count(data, 'c');
 	data->player.img_x = find(data, 'P')[0];
 	data->player.img_y = find(data, 'P')[1];
+	data->e.mode = 0;
+	data->e.dir = 1;
+	render_map(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->t.p_wait[0],
 		data->player.img_x, data->player.img_y);
 	return (0);
@@ -61,6 +36,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		show_error(0);
 	check_map(&data, av[1]);
+	print_map(&data);
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, data.map_w, data.map_h, "so_long");
 	game_init(&data);

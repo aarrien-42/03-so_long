@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:47:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/21 16:33:07 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:29:35 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int	put_image(t_data *data, void **img, int pos[2], int mode)
 {
 	static int	i;
-	int			chests;
 
-	chests = data->chests_init - obj_count(data, 'c');
 	mlx_put_image_to_window(data->mlx, data->win, img[0], pos[0], pos[1]);
 	if (mode == 1 || mode == 2)
 		mlx_put_image_to_window(data->mlx, data->win, img[1],
@@ -46,10 +44,6 @@ int	render_objects(t_data *data, int x, int y)
 		put_image(data, data->t.chest, pos, 0);
 	if (data->map[y][x] == 'e')
 		put_image(data, data->t.exit, pos, 2);
-	if (data->map[y][x] == 'v' || data->map[y][x] == 'h')
-		put_image(data, &data->t.spike[2], pos, 0);
-	if (data->map[y][x] == 'V' || data->map[y][x] == 'H')
-		put_image(data, &data->t.spike[2], pos, 0);
 	return (0);
 }
 
@@ -73,6 +67,7 @@ int	render_map(t_data *data)
 		i = 0;
 		j++;
 	}
+	scan_enemies(data);
 	show_info(data);
 	return (0);
 }
@@ -123,6 +118,7 @@ int	render_next_frame(t_data *data)
 		if (data->map[data->player.img_y / 32][data->player.img_x / 32] == 'c')
 			collect_chest(data, data->player.img_x / 32,
 				data->player.img_y / 32);
+		check_die(data);
 	}
 	return (0);
 }

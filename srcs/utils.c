@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:16:45 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/21 16:19:06 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:19:04 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,33 @@ void	show_error(int code)
 	if (code == 8)
 		ft_putstr_fd("Imposible map\n", 2);
 	exit(0);
+}
+
+int	*find(t_data *data, char c)
+{
+	int	*res;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	res = malloc(2 * sizeof(int));
+	while (data->map[j])
+	{
+		while (data->map[j][i])
+		{
+			if (data->map[j][i] == c)
+			{
+				res[0] = i * 32;
+				res[1] = j * 32;
+				return (res);
+			}
+			i++;
+		}
+		i = 0;
+		j++;
+	}
+	return (0);
 }
 
 int	obj_count(t_data *data, char c)
