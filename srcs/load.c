@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:30:48 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/20 17:58:29 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:34:07 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	load_n(t_data *data, void **w, char *path, int n)
 		free(s);
 		free(s1);
 		free(s2);
+		if (w[i] == NULL)
+			show_error(10);
 		i++;
 	}
 	return (0);

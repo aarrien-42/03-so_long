@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 10:54:28 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/23 13:53:50 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:49:23 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_border(t_data *data)
 	char	*s;
 
 	i = 0;
-	s = "XchvP";
+	s = "XchvP0";
 	while (data->map[0][i])
 		if (ft_strchr(s, data->map[0][i++]) != 0)
 			return (1);
@@ -113,8 +113,6 @@ int	check_map(t_data *data, char *input)
 	if (save_map(data, input, data->map_h / 32) != 0)
 		show_error(2);
 	data->map_w = get_width(data) * 32;
-	if (check_valid_letters(data) != 0)
-		show_error(3);
 	if (obj_count(data, 'C') < 1)
 		show_error(4);
 	if (obj_count(data, 'P') != 1)
@@ -123,6 +121,8 @@ int	check_map(t_data *data, char *input)
 		show_error(6);
 	if (check_rect(data) != 0)
 		show_error(7);
+	if (check_valid_letters(data) != 0)
+		show_error(3);
 	pos = find(data, 'P');
 	paint_floor(data, pos[0] / 32, pos[1] / 32);
 	if (check_border(data) != 0)

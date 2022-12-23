@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:16:45 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/23 14:08:17 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:33:29 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	show_error(int code)
 		ft_putstr_fd("The map is not fully closed\n", 2);
 	if (code == 9)
 		ft_putstr_fd("Imposible map\n", 2);
+	if (code == 10)
+		ft_putstr_fd("Invalid xpm to image\n", 2);
 	exit(0);
 }
 
