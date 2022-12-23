@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:31:44 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/23 13:49:08 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:03:08 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == 49)
 		data->view = -1;
-	if (data->view == -1)
+	if (data->view == -1 || data->moving != 0)
 		return (0);
 	if (keysym == 53)
 		handle_destroy(data);

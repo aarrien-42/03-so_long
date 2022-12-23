@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:16:45 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/23 12:17:34 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:08:17 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	show_error(int code)
 	if (code == 0)
 		ft_putstr_fd("Invalid input\n", 2);
 	if (code == 1)
-		ft_putstr_fd("Invalid file extension\n", 2);
+		ft_putstr_fd("Invalid file\n", 2);
 	if (code == 2)
 		ft_putstr_fd("Unable to read from the file\n", 2);
 	if (code == 3)
