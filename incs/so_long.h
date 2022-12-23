@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/22 14:30:38 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:21:44 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		print_map(t_data *data);
 int		check_rect(t_data *data);
 int		check_border(t_data *data);
 int		paint_floor(t_data *data, int x, int y);
+int		check_valid_letters(t_data *data);
 int		check_map(t_data *data, char *input);
 
 /*-UTILS-*/

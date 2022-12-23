@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:31:44 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/22 15:52:17 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:49:08 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,9 @@ int	handle_keypress(int keysym, t_data *data)
 		data->view = 3;
 	if (keysym == 2 || keysym == 124)
 		data->view = 4;
-	data->moving = data->view;
-	if (data->view != 0 && data->view != -1)
-		data->moves++;
-	if (data->view != 0)
+	if (data->moving == 0 && data->view != 0 && ++data->moves != 0)
 		move_enemy(data);
+	data->moving = data->view;
 	return (0);
 }
 

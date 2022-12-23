@@ -15,7 +15,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 # Comandos
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address -g3
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM = rm -f
 AR = ar rcs

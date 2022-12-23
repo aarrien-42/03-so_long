@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:16:45 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/21 17:19:04 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 12:17:34 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,18 @@ void	show_error(int code)
 	if (code == 2)
 		ft_putstr_fd("Unable to read from the file\n", 2);
 	if (code == 3)
-		ft_putstr_fd("Not a single collectable\n", 2);
+		ft_putstr_fd("Invalid characters in map\n", 2);
 	if (code == 4)
-		ft_putstr_fd("Invalid number of players\n", 2);
+		ft_putstr_fd("Not a single collectable\n", 2);
 	if (code == 5)
-		ft_putstr_fd("Invalid number of exits\n", 2);
+		ft_putstr_fd("Invalid number of players\n", 2);
 	if (code == 6)
-		ft_putstr_fd("The map is not a rectangle\n", 2);
+		ft_putstr_fd("Invalid number of exits\n", 2);
 	if (code == 7)
-		ft_putstr_fd("The map is not fully closed\n", 2);
+		ft_putstr_fd("The map is not a rectangle\n", 2);
 	if (code == 8)
+		ft_putstr_fd("The map is not fully closed\n", 2);
+	if (code == 9)
 		ft_putstr_fd("Imposible map\n", 2);
 	exit(0);
 }

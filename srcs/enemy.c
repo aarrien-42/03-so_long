@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 13:36:01 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/22 15:35:58 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:37:10 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	put_enemy(t_data *data, int x, int y, int mode)
 {
+	if (y < 0 || x < 0 || y > data->map_h / 32 - 1)
+		return (0);
 	if (data->map[y][x] == 'X' ||
 		data->map[y][x] == 'v' || data->map[y][x] == 'V' ||
 		data->map[y][x] == 'h' || data->map[y][x] == 'H')

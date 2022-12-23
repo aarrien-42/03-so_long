@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 10:26:05 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/22 15:38:17 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:16:43 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		show_error(0);
 	check_map(&data, av[1]);
-	print_map(&data);
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, data.map_w, data.map_h, "so_long");
 	game_init(&data);
