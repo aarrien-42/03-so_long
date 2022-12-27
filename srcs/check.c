@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 10:54:28 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/23 18:49:23 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/27 16:04:46 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,15 +114,15 @@ int	check_map(t_data *data, char *input)
 		show_error(2);
 	data->map_w = get_width(data) * 32;
 	if (obj_count(data, 'C') < 1)
-		show_error(4);
-	if (obj_count(data, 'P') != 1)
-		show_error(5);
-	if (obj_count(data, 'E') != 1)
-		show_error(6);
-	if (check_rect(data) != 0)
-		show_error(7);
-	if (check_valid_letters(data) != 0)
 		show_error(3);
+	if (obj_count(data, 'P') != 1)
+		show_error(4);
+	if (obj_count(data, 'E') != 1)
+		show_error(5);
+	if (check_rect(data) != 0)
+		show_error(6);
+	if (check_valid_letters(data) != 0)
+		show_error(7);
 	pos = find(data, 'P');
 	paint_floor(data, pos[0] / 32, pos[1] / 32);
 	if (check_border(data) != 0)
